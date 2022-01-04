@@ -3,13 +3,13 @@ pkgver=6
 pkgrel=1
 pkgdesc="A pomodoro timer for the shell"
 arch=('any')
-url="https://github.com/Bladtman242/potato"
+url="https://github.com/emiham/potato"
 license=('MIT')
 depends=('alsa-utils')
 source=('potato.sh'
         'notification.wav'
         'LICENSE')
-md5sums=('3d5707d4194f205502fa2c2778252b90'
+md5sums=('ff1d5a88f0f86d07433cac195f3535d9'
          'b01bacb54937c9bdd831f4d4ffd2e31c'
          '1ddcbd2862764b43d75fb1e484bf8912')
 package() {
