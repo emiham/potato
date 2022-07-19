@@ -18,7 +18,7 @@ show_help() {
 	    -w m: let work periods last m minutes (default is 25)
 	    -b m: let break periods last m minutes (default is 5)
 	    -B m: let long break periods last m minutes (default is 25)
-	    -r m: number of work sessions before long break (default is 4)
+	    -r s: do s work sessions before a long break (default is 4)
 	    -h: print this message
 END
 }
