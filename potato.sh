@@ -3,8 +3,8 @@
 # shellcheck disable=SC2059
 
 WORK=25
-PAUSE=5
-LONG_PAUSE=25
+BREAK=5
+LONG_BREAK=25
 SESSIONS=4
 INTERACTIVE=true
 MUTE=false
@@ -51,10 +51,10 @@ while getopts :sw:b:B:r:a:mnh? opt; do
       WORK=$OPTARG
       ;;
     b)
-      PAUSE=$OPTARG
+      BREAK=$OPTARG
       ;;
     B)
-      LONG_PAUSE=$OPTARG
+      LONG_BREAK=$OPTARG
       ;;
     r)
       SESSIONS=$OPTARG
@@ -95,16 +95,16 @@ do
   fi
 
   if [ "$((CURR_SESSION % SESSIONS))" -eq 0 ]; then
-    j=$LONG_PAUSE
+    j=$LONG_BREAK
     while [ "$j" -gt 0 ]; do
-      printf "$time_left" "$j" "long pause"
+      printf "$time_left" "$j" "long break"
       sleep 1m
       j=$((j - 1))
     done
   else
-    j=$PAUSE
+    j=$BREAK
     while [ "$j" -gt 0 ]; do
-      printf "$time_left" "$j" "pause"
+      printf "$time_left" "$j" "break"
       sleep 1m
       j=$((j - 1))
     done
@@ -114,8 +114,8 @@ do
   if $INTERACTIVE; then
     perl -MPOSIX -e 'tcflush(0, TCIFLUSH)'
     printf "\a"
-    printf "\nPause over"
-    $NOTIFY && notify-send potato "Pause over"
+    printf "\nBreak over"
+    $NOTIFY && notify-send potato "Break over"
     read -r _
   fi
 done
