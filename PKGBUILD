@@ -1,4 +1,5 @@
-pkgname=patata
+# Maintainer: Emil Hammarberg emilhammarberg@mailbox.org
+pkgname=patata-git
 pkgver=7
 pkgrel=1
 pkgdesc="A pomodoro timer for the shell"
