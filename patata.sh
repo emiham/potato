@@ -8,14 +8,14 @@ LONG_BREAK=25
 SESSIONS=4
 INTERACTIVE=true
 MUTE=false
-AUDIO_FILE=/usr/lib/potato/notification.wav
+AUDIO_FILE=/usr/lib/patata/notification.wav
 NOTIFY=false
 
 show_help() {
   cat <<-END
-  usage: potato [-s] [-m] [-a /path/to/audio.wav] [-w m] [-b m] [-h]
+  usage: patata [-s] [-m] [-a /path/to/audio.wav] [-w m] [-b m] [-h]
       -s: simple output. Intended for use in scripts
-          When enabled, potato outputs one line for each minute, and doesn't print the bell character
+          When enabled, patata outputs one line for each minute, and doesn't print the bell character
           (ascii 007)
 
       -m: mute -- don't play sounds when work/break is over
@@ -90,7 +90,7 @@ do
     perl -MPOSIX -e 'tcflush(0, TCIFLUSH)'
     printf "\a"
     printf "\nWork over"
-    $NOTIFY && notify-send potato "Work over"
+    $NOTIFY && notify-send patata "Work over"
     read -r _
   fi
 
@@ -115,7 +115,7 @@ do
     perl -MPOSIX -e 'tcflush(0, TCIFLUSH)'
     printf "\a"
     printf "\nBreak over"
-    $NOTIFY && notify-send potato "Break over"
+    $NOTIFY && notify-send patata "Break over"
     read -r _
   fi
 done

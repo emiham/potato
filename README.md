@@ -1,4 +1,4 @@
-# potato
+# patata
 
 A pomodoro timer for the shell.
 
