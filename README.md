@@ -2,8 +2,11 @@
 
 A pomodoro timer for the shell.
 
-This fork adds a long break after four work sessions (or any other amount with
-a flag).
+This fork adds:
+- a long break after four work sessions (or any other amount with a flag).
+- the option to use a custom sound effect
+- notifications
+- POSIX compliance
 
 ## Credits
 Notification sound (notification.wav, originally
