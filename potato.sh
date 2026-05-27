@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+
+# shellcheck disable=SC2059
 
 WORK=25
 PAUSE=5
@@ -31,7 +33,7 @@ play_notification() {
   aplay -q "$AUDIO_FILE" &
 }
 
-while getopts :sw:b:B:r:a:mn opt; do
+while getopts :sw:b:B:r:a:mnh? opt; do
   case "$opt" in
     s)
       INTERACTIVE=false
@@ -75,43 +77,45 @@ fi
 CURR_SESSION=0
 while true
 do
-  ((CURR_SESSION++))
-  for ((i=$WORK; i>0; i--))
-  do
-    printf "$time_left" $i "work"
+  CURR_SESSION=$((CURR_SESSION + 1))
+  i=$WORK
+  while [ "$i" -gt 0 ]; do
+    printf "$time_left" "$i" "work"
     sleep 1m
+    i=$((i - 1))
   done
 
   ! $MUTE && play_notification
   if $INTERACTIVE; then
-    read -d '' -t 0.001
-    echo -e "\a"
-    echo "Work over"
+    perl -MPOSIX -e 'tcflush(0, TCIFLUSH)'
+    printf "\a"
+    printf "\nWork over"
     $NOTIFY && notify-send potato "Work over"
-    read
+    read -r _
   fi
 
-  if (($CURR_SESSION % $SESSIONS == 0))
-  then
-    for ((i=$LONG_PAUSE; i>0; i--))
-    do
-      printf "$time_left" $i "long pause"
+  if [ "$((CURR_SESSION % SESSIONS))" -eq 0 ]; then
+    j=$LONG_PAUSE
+    while [ "$j" -gt 0 ]; do
+      printf "$time_left" "$j" "long pause"
       sleep 1m
+      j=$((j - 1))
     done
   else
-    for ((i=$PAUSE; i>0; i--))
-    do
-      printf "$time_left" $i "pause"
+    j=$PAUSE
+    while [ "$j" -gt 0 ]; do
+      printf "$time_left" "$j" "pause"
       sleep 1m
+      j=$((j - 1))
     done
   fi
 
   ! $MUTE && play_notification
   if $INTERACTIVE; then
-    read -d '' -t 0.001
-    echo -e "\a"
-    echo "Pause over"
+    perl -MPOSIX -e 'tcflush(0, TCIFLUSH)'
+    printf "\a"
+    printf "\nPause over"
     $NOTIFY && notify-send potato "Pause over"
-    read
+    read -r _
   fi
 done
