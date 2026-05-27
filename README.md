@@ -8,10 +8,13 @@ This fork adds:
 - notifications
 - POSIX compliance
 
+## Installation
+
+It's on the AUR as [patata-git](https://aur.archlinux.org/packages/patata-git).
+
 ## Credits
+
 Notification sound (notification.wav, originally
 zapsplat\_mobile\_phone\_notification\_003.mp3 decoded and saved as wav with
-mpg123)
-obtained from [zapsplat.com](https://www.zapsplat.com/) under Creative Commons
-CC0.
-
+mpg123) obtained from [zapsplat.com](https://www.zapsplat.com/) under Creative
+Commons CC0.
