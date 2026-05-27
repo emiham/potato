@@ -6,34 +6,39 @@ LONG_PAUSE=25
 SESSIONS=4
 INTERACTIVE=true
 MUTE=false
+AUDIO_FILE=/usr/lib/potato/notification.wav
 
 show_help() {
   cat <<-END
-	usage: potato [-s] [-m] [-w m] [-b m] [-h]
-	    -s: simple output. Intended for use in scripts
-	        When enabled, potato outputs one line for each minute, and doesn't print the bell character
-	        (ascii 007)
+  usage: potato [-s] [-m] [-a /path/to/audio.wav] [-w m] [-b m] [-h]
+      -s: simple output. Intended for use in scripts
+          When enabled, potato outputs one line for each minute, and doesn't print the bell character
+          (ascii 007)
 
-	    -m: mute -- don't play sounds when work/break is over
-	    -w m: let work periods last m minutes (default is 25)
-	    -b m: let break periods last m minutes (default is 5)
-	    -B m: let long break periods last m minutes (default is 25)
-	    -r s: do s work sessions before a long break (default is 4)
-	    -h: print this message
+      -m: mute -- don't play sounds when work/break is over
+      -a /path/to/audio.wav: audio file to play when a period is over
+      -w m: let work periods last m minutes (default is 25)
+      -b m: let break periods last m minutes (default is 5)
+      -B m: let long break periods last m minutes (default is 25)
+      -r s: do s work sessions before a long break (default is 4)
+      -h: print this message
 END
 }
 
 play_notification() {
-  aplay -q /usr/lib/potato/notification.wav &
+  aplay -q "$AUDIO_FILE" &
 }
 
-while getopts :sw:b:B:r:m opt; do
+while getopts :sw:b:B:r:a:m opt; do
   case "$opt" in
     s)
       INTERACTIVE=false
       ;;
     m)
       MUTE=true
+      ;;
+    a)
+      AUDIO_FILE=$OPTARG
       ;;
     w)
       WORK=$OPTARG
