@@ -1,15 +1,16 @@
 pkgname=potato
-pkgver=6
+pkgver=7
 pkgrel=1
 pkgdesc="A pomodoro timer for the shell"
 arch=('any')
 url="https://github.com/emiham/potato"
 license=('MIT')
 depends=('alsa-utils')
+optdepends=('notify-send')
 source=('potato.sh'
         'notification.wav'
         'LICENSE')
-md5sums=('ff1d5a88f0f86d07433cac195f3535d9'
+md5sums=('f30b789a1149053960b28df00f461a5f'
          'b01bacb54937c9bdd831f4d4ffd2e31c'
          '1ddcbd2862764b43d75fb1e484bf8912')
 package() {
