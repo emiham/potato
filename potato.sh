@@ -7,6 +7,7 @@ SESSIONS=4
 INTERACTIVE=true
 MUTE=false
 AUDIO_FILE=/usr/lib/potato/notification.wav
+NOTIFY=false
 
 show_help() {
   cat <<-END
@@ -17,6 +18,7 @@ show_help() {
 
       -m: mute -- don't play sounds when work/break is over
       -a /path/to/audio.wav: audio file to play when a period is over
+      -n: send a notification when a period is over
       -w m: let work periods last m minutes (default is 25)
       -b m: let break periods last m minutes (default is 5)
       -B m: let long break periods last m minutes (default is 25)
@@ -29,13 +31,16 @@ play_notification() {
   aplay -q "$AUDIO_FILE" &
 }
 
-while getopts :sw:b:B:r:a:m opt; do
+while getopts :sw:b:B:r:a:mn opt; do
   case "$opt" in
     s)
       INTERACTIVE=false
       ;;
     m)
       MUTE=true
+      ;;
+    n)
+      NOTIFY=true
       ;;
     a)
       AUDIO_FILE=$OPTARG
@@ -82,6 +87,7 @@ do
     read -d '' -t 0.001
     echo -e "\a"
     echo "Work over"
+    $NOTIFY && notify-send potato "Work over"
     read
   fi
 
@@ -105,6 +111,7 @@ do
     read -d '' -t 0.001
     echo -e "\a"
     echo "Pause over"
+    $NOTIFY && notify-send potato "Pause over"
     read
   fi
 done
